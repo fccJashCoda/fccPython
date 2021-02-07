@@ -85,10 +85,3 @@ def arithmetic_arranger(arr, results=False):
         return "Error: Numbers cannot be more than four digits."
     except TermIsNan:
         return "Error: Numbers must only contain digits."
-
-
-print(
-    arithmetic_arranger(["32 + 698", "3801 - 2", "45 + 43",
-                         "123 + 49", "1 - 3001"], True)
-
-)
