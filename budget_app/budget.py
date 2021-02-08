@@ -88,14 +88,32 @@ def create_spend_chart(arr):
     # print the separator (should end 2 bars after the last name line)
     separator = '-'.rjust(5, ' ') + '---' * len(arr)
     # print the category names
-    for category in arr:
-        print(category.name)
     min_length = max([len(item.name) for item in arr])
+
+    name_lines = []
+    for n in range(min_length):
+        row = str()
+        for category in arr:
+            if not len(row):
+                if n < len(category.name):
+                    row += category.name[n].rjust(2, ' ')
+                else:
+                    row += ' ' * 2
+            else:
+                if n < len(category.name):
+                    row += category.name[n].rjust(3, ' ')
+                else:
+                    row += ' ' * 3
+        row += '\n'
+        row = row.rjust(len(row) + 4, ' ')
+        name_lines.append(row)
+
     # print(min_length)
     multilign_graph = (f"Percentage spent by category\n"
                        f"{str().join(graph_lines)}"
                        f"{separator}")
     print(multilign_graph)
+    print(str().join(name_lines))
 
     return multilign_graph
 
