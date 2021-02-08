@@ -5,6 +5,16 @@ class Category:
         self.ledger = []
         self.balance = 0
 
+    def __str__(self):
+
+        transactions = [x["description"][:23].ljust(23, ' ') +
+                        f'{x["amount"]:.2f}'.rjust(7, ' ') + '\n' for x in self.ledger]
+        multilign_string = (f"{self.name.center(30, '*')}\n"
+                            f"{''.join(transactions)}"
+                            f"Total: {self.balance:.2f}")
+
+        return multilign_string
+
     def deposit(self, amount, description=str()):
         self.balance += amount
         transaction = {
@@ -26,7 +36,7 @@ class Category:
             return False
 
     def get_balance(self):
-        return self.balance
+        return f"{self.balance:.2f}"
 
     def transfer(self, amount, destination):
         if self.check_funds(amount):
@@ -44,14 +54,15 @@ class Category:
 
 
 def create_spend_chart():
-    pass
+    multilign_graph = (f"Percentage spent by category")
+    return multilign_graph
 
 
 food = Category('Food')
-print(food.balance)
+print(food.get_balance())
 print(food.ledger)
 food.deposit(1000, 'bitcoin')
-print(food.balance)
+print(food.get_balance())
 print(food.ledger)
 food.withdraw(155, 'bitcoin')
 car = Category('Car')
@@ -61,3 +72,4 @@ print(food.get_balance())
 print(food.ledger)
 print(car.get_balance())
 print(car.ledger)
+print(food)
