@@ -100,7 +100,10 @@ def create_spend_chart(arr):
                     y_axis += 'o'.rjust(2, ' ')
             else:
                 y_axis += ' ' * 3
-        y_axis += ' \n'
+        if 'o' in y_axis:
+            y_axis += '  \n'
+        else:
+            y_axis += ' \n'
         graph_lines.append(y_axis)
 
     # print the separator (should end 2 bars after the last name line)
@@ -122,7 +125,11 @@ def create_spend_chart(arr):
                     row += category.name[n].rjust(3, ' ')
                 else:
                     row += ' ' * 3
-        row += '\n'
+        if n != min_length - 1:
+            row += '  \n'
+        else:
+            row += '  '
+        # row += '  \n'
         row = row.rjust(len(row) + 4, ' ')
         name_lines.append(row)
 
