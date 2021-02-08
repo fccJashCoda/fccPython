@@ -53,8 +53,50 @@ class Category:
         return False
 
 
-def create_spend_chart():
-    multilign_graph = (f"Percentage spent by category")
+def create_spend_chart(arr):
+    percentage_spent = []
+    # get the percentage spent by category rounded down to the nearest ten
+
+    for category in arr:
+        amount_spent = abs(sum(x["amount"] if x["amount"] <
+                               0 else 0 for x in category.ledger))
+        gross_sum = sum(x["amount"] if x["amount"] >
+                        0 else 0 for x in category.ledger)
+
+        if gross_sum > 0:
+            percentage = (amount_spent / gross_sum) * 100
+        else:
+            percentage = 0
+        percentage_spent.append(int(percentage - (percentage % 10)))
+    print(percentage_spent)
+
+    # print out the bar chart
+    graph_lines = []
+    for row in range(100, -1, -10):
+        y_axis = (str(row) + '|').rjust(4, ' ')
+        for value in percentage_spent:
+            if value >= row:
+                if 'o' in y_axis:
+                    y_axis += 'o'.rjust(3, ' ')
+                else:
+                    y_axis += 'o'.rjust(2, ' ')
+            else:
+                y_axis += ' ' * 3
+        y_axis += '  \n'
+        graph_lines.append(y_axis)
+
+    # print the separator (should end 2 bars after the last name line)
+    separator = '-'.rjust(5, ' ') + '---' * len(arr)
+    # print the category names
+    for category in arr:
+        print(category.name)
+    min_length = max([len(item.name) for item in arr])
+    # print(min_length)
+    multilign_graph = (f"Percentage spent by category\n"
+                       f"{str().join(graph_lines)}"
+                       f"{separator}")
+    print(multilign_graph)
+
     return multilign_graph
 
 
@@ -73,3 +115,9 @@ print(food.ledger)
 print(car.get_balance())
 print(car.ledger)
 print(food)
+vacation = Category('Vacation')
+gifts = Category('Gifts')
+gifts.deposit(100, 'mouse')
+gifts.withdraw(88, 'mouse')
+
+create_spend_chart([food, car, vacation, gifts])
