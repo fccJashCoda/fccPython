@@ -5,10 +5,8 @@ import random
 class Hat:
 
     def __init__(self, **balls):
-        self.balls = {}
         self.contents = []
         for ball, quantity in balls.items():
-            self.balls[ball] = quantity
             self.contents += [ball for x in range(quantity)]
 
     def draw(self, draws):
