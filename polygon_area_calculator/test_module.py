@@ -80,6 +80,7 @@ class UnitTests(unittest.TestCase):
         expected = "Square(side=2)"
         self.assertEqual(
             actual, expected, 'Expected string representation of square after setting new values to be "Square(side=2)"')
+        # self.sq.set_side(4)
         self.sq.set_width(4)
         actual = str(self.sq)
         expected = "Square(side=4)"

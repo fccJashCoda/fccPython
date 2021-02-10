@@ -39,7 +39,11 @@ class Rectangle:
     def get_amount_inside(self, shape):
         if shape.get_width() > self.__width or shape.get_height() > self.__height:
             return 0
-        return self.get_area() // shape.get_area()
+        x_axis_possibilities = self.__width // shape.get_width()
+        y_axis_possibilities = self.__height // shape.get_height()
+        amount = max(x_axis_possibilities, y_axis_possibilities)
+        print(amount)
+        return amount
 
 
 class Square(Rectangle):
@@ -56,8 +60,39 @@ class Square(Rectangle):
         super().set_width(side)
         super().set_height(side)
 
-    def set_width(self, width):
-        self.set_side(width)
-
     def get_width(self):
         return self.__side
+
+
+sq = Square(2)
+print(sq)
+print(sq.get_picture())
+
+sq = Square(5)
+print(sq)
+print(sq.get_picture())
+
+sq = Square(3)
+print(sq)
+print(sq.get_picture())
+
+
+sq.set_side(2)
+print(sq)
+print(sq.get_width())
+print(sq.get_picture())
+
+sq.set_side(5)
+print(sq)
+print(sq.get_width())
+print(sq.get_picture())
+
+sq.set_side(3)
+print(sq)
+print(sq.get_width())
+print(sq.get_picture())
+
+sq.set_width(2)
+print(sq)
+print(sq.get_width())
+print(sq.get_picture())
